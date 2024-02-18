@@ -1,0 +1,321 @@
+" Begin Vimrc
+set linenumber
+set showcmd
+set showmode
+set number
+set incsearch
+set ignorecase
+set smartcase
+set clipboard+=unnamedplus
+set clipboard^=ideaput
+set idearefactormode=keep
+set visualbell
+set noerrorbells
+set noideadelaymacro
+set notimeout
+set ideajoin
+
+let mapleader = " "
+
+sethandler <c-f> n:vim v:ide
+
+set which-key
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKeyDesc_leader = "<leader> Leader key"
+let g:WhichKey_DefaultDelay = 300
+
+" Create Blank Newlines and stay in Normal mode
+nnoremap <silent> zj o<Esc>k
+let g:WhichKeyDesc_zj = "zj"
+nnoremap <silent> zk O<Esc>j
+let g:WhichKeyDesc_zk = "zk"
+
+
+" Easy move to four directions with control
+inoremap <c-k> <up>
+inoremap <c-j> <down>
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+
+" Maintain visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Y yank all text in line
+nnoremap Y ^vg_y
+
+" page moves centers cursor
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+
+" U to redo
+nnoremap U <C-r>
+
+" R to execute q macro
+nnoremap R @q
+
+" Reselect last-pasted text
+nnoremap gp `[v`]
+let g:WhichKeyDesc_gp = "gp"
+
+" Visual Replace with text
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
+" Navigate methods
+nmap gm <leader>gm
+nmap gM <leader>gu
+
+" Plugins
+Plug 'tpope/vim-commentary'
+let g:WhichKeyDesc_com = "gc"
+Plug 'easymotion/vim-easymotion'
+map , <Plug>(easymotion-prefix)
+let g:WhichKeyDescasymotion_leader = ","
+map ,f <Plug>(easymotion-bd-f)
+let g:WhichKeyDesc_easymotion_f = ",f"
+map ,t <Plug>(easymotion-bd-t)
+let g:WhichKeyDesc_easymotion_t = ",t"
+map ,w <Plug>(easymotion-bd-w)
+let g:WhichKeyDesc_easymotion_w = ",w"
+map ,W <Plug>(easymotion-bd-W)
+let g:WhichKeyDesc_easymotion_W = ",W"
+map ,e <Plug>(easymotion-bd-e)
+let g:WhichKeyDesc_easymotion_e = ",e"
+map ,E <Plug>(easymotion-bd-E)
+let g:WhichKeyDesc_easymotion_E = ",E"
+map ,l <Plug>(easymotion-bd-jk)
+let g:WhichKeyDesc_easymotion_l = ",l"
+map ,s <Plug>(easymotion-bd-f2)
+let g:WhichKeyDesc_easymotion_s = ",s"
+map ,S <Plug>(easymotion-bd-t2)
+let g:WhichKeyDesc_easymotion_S = ",S"
+
+Plug 'tpope/vim-surround'
+let g:WhichKeyDesc_surround_ys = "ys"
+let g:WhichKeyDesc_surround_ds = "ds"
+let g:WhichKeyDesc_surround_cs = "cs"
+
+set multiple-cursors
+Plug 'terryma/vim-multiple-cursors'
+let g:WhichKeyDesc_mult = "g<A-n>"
+map ,m <Plug>NextWholeOccurrence
+let g:WhichKeyDesc_multiple_m = ",m"
+map ,M <Plug>SkipOccurrence
+let g:WhichKeyDesc_multiple_M = ",M"
+
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'machakann/vim-highlightedyank'
+Plug 'tommcdo/vim-exchange,
+let g:WhichKeyDesc_exchange = "cx"
+Plug 'vim-scripts/ReplaceWithRegister'
+let g:WhichKeyDesc_replace = "gr"
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'dbakker/vim-paragraph-motion'
+Plug 'kana/vim-textobj-entire'
+
+" Most useful go to commands use g:
+nmap gt <Action>(NextTab)
+let g:WhichKeyDesc_NextTab = "gt"
+nmap gT <Action>(PreviousTab)
+let g:WhichKeyDesc_PrevTab = "gT"
+nmap gE <Action>(GotoPreviousError)
+let g:WhichKeyDesc_errp = "gE"
+nmap ge <Action>(GotoNextError)
+let g:WhichKeyDesc_errn = "ge"
+nmap gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_decl = "gd"
+nmap gD <Action>(GotoTypeDeclaration)
+let g:WhichKeyDesc_tdecla = "gD"
+nmap gb <Action>(Back)
+let g:WhichKeyDesc_tdeclaa = "gb"
+nmap gf <Action>(Forward)
+let g:WhichKeyDesc_tdeclaak = "gf"
+
+" Command Picker using <leader>
+let g:WhichKey_Desc_allFiles = "<leader><leader> Show all files"
+nmap <leader><leader> <Action>(GotoFile)
+
+let g:WhichKeyDesc_Window = "<leader>w Manage Windows"
+nmap <leader>ws <Action>(SplitVertically)
+let g:WhichKeyDesc_Window_Split = "<leader>ws Split Vertically"
+nmap <leader>wu <Action>(Unsplit)
+let g:WhichKeyDesc_Window_Unsplit = "<leader>wu Unsplit"
+nmap <leader>wq <Action>(CloseContent)
+let g:WhichKeyDesc_Window_Close = "<leader>wq Close Buffer"
+nmap <leader>wh <Action>(CloseAllToTheLeft)
+let g:WhichKeyDesc_Window_Closeh = "<leader>wh Close All Tabs to left"
+nmap <leader>wl <Action>(CloseAllToTheRight)
+let g:WhichKeyDesc_Window_Closel = "<leader>wl Close All Tabs to right"
+nmap <leader>wx <Action>(CloseAllEditorsButActive)
+let g:WhichKeyDesc_Window_Closex = "<leader>wx Close All Tabs but active"
+nmap <leader>wr <Action>(ReopenClosedTab)
+let g:WhichKeyDesc_Window_Reopen = "<leader>wr Reopen Last Closed Buffer"
+"nnoremap <leader>ww <c-w>w
+"let g:WhichKeyDesc_Window_Switch = "<leader>ww Switch Split"
+"map <leader>wt <Action>(NextTab)
+"let g:WhichKeyDesc_Window_NTab = "<leader>wt Next Tab"
+"map <leader>wp <Action>(PreviousTab)
+"let g:WhichKeyDesc_Window_PTab = "<leader>wp Previous Tab"
+nmap <leader>wc <Action>(HideAllWindows)
+let g:WhichKeyDesc_Window_Hide = "<leader>wc Hide All Windows"
+
+let g:WhichKeyDesc_Folding = "<leader>z Folding"
+nmap <leader>zc <Action>(CollapseRegion)
+let g:WhichKeyDesc_Folding_c = "<leader>zc Collapse Region"
+nmap <leader>ze <Action>(ExpandRegion)
+let g:WhichKeyDesc_Folding_e = "<leader>ze Expand Region"
+nmap <leader>zd <Action>(CollapseAllRegions)
+let g:WhichKeyDesc_Folding_C = "<leader>zd Collapse All Regions"
+nmap <leader>zf <Action>(ExpandAllRegions)
+let g:WhichKeyDesc_Folding_E = "<leader>zf Expand All Regions"
+
+let g:WhichKeyDesc_Terminal = "<leader>t Terminal and Run"
+nmap <leader>to <Action>(Terminal.OpenInTerminal)
+let g:WhichKeyDesc_Terminal_to = "<leader>to Open New Terminal in Path"
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_Terminal_tt = "<leader>tt Open Terminal"
+nmap <leader>tr <Action>(ContextRun)
+let g:WhichKeyDesc_Terminal_tr = "<leader>tr Context Run"
+nmap <leader>ts <Action>(RunClass)
+let g:WhichKeyDesc_Terminal_ts = "<leader>ts Run Class"
+nmap <leader>tc <Action>(RerunTests)
+let g:WhichKeyDesc_Terminal_tc = "<leader>tc Run Tests"
+nmap <leader>tf <Action>(RerunFailedTests)
+let g:WhichKeyDesc_Terminal_tf = "<leader>tf Run Failed Tests"
+nmap <leader>tp <Action>(ChooseRunConfiguration)
+let g:WhichKeyDesc_Terminal_tp = "<leader>tp Choose Run Configuration"
+
+let g:WhichKeyDesc_Ref = "<leader>r Refactorings"
+nmap <leader>rp <Action>(Refactorings.QuickListPopupAction)
+let g:WhichKeyDesc_Ref_p = "<leader>rp Refactor Popup"
+nmap <Leader>rf <Action>(ReformatCode)
+let g:WhichKeyDesc_Ref_f = "<leader>rf Reformat Code"
+nmap <Leader>rn <Action>(RenameElement)
+let g:WhichKeyDesc_Ref_n = "<leader>rn Rename Element"
+nmap <leader>ra <Action>(ShowIntentionActions)
+let g:WhichKeyDesc_Ref_a = "<leader>ra Intention Actions"
+nmap <leader>rg <Action>(Generate)
+let g:WhichKeyDesc_Ref_g = "<leader>rg Generate"
+
+let g:WhichKeyDesc_Find = "<leader>f Find and Replace"
+nmap <leader>fr <Action>(Replace)
+let g:WhichKeyDesc_Find_rep = "<leader>fr Replace"
+nmap <leader>fe <Action>(SearchEverywhere)
+let g:WhichKeyDesc_Find_every = "<leader>fe Search Everywhere"
+nmap <leader>fp <Action>(FindInPath)
+let g:WhichKeyDesc_Find_findp = "<leader>fp Find in Path"
+nmap <leader>ff <Action>(Find)
+let g:WhichKeyDesc_Find_find = "<leader>ff Search in file"
+
+let g:WhichKeyDesc_vim = "<leader>v VIM"
+nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_vim_r = "<leader>vr Reload .ideavimrc"
+nnoremap <leader>ve :e ~/.ideavimrc<CR>
+let g:WhichKeyDesc_vim_e = "<leader>ve Edit .ideavimrc"
+
+let g:WhichKeyDesc_Show = "<leader>s Show"
+nmap <leader>su <Action>(FindUsages)
+let g:WhichKeyDesc_Show_us = "<leader>su Show Usages"
+nmap <leader>sl <Action>(RecentLocations)
+let g:WhichKeyDesc_Show_lo = "<leader>sl Recent Locations"
+"map <leader>sr <Action>(GotoRelated)
+"let g:WhichKeyDesc_Show_rel = "<leader>sr Goto Related"
+nmap <leader>sd <Action>(QuickJavaDoc)
+let g:WhichKeyDesc_Show_doc = "<leader>sd Documentation"
+nmap <leader>se <Action>(ShowErrorDescription)
+let g:WhichKeyDesc_Show_er = "<leader>se Error Description"
+nmap <leader>sa <Action>(GotoAction)
+let g:WhichKeyDesc_Show_ac = "<leader>sa Actions"
+nmap <leader>sf <Action>(RecentFiles)
+let g:WhichKeyDesc_Show_fi = "<leader>sf Recent Files"
+nmap <leader>sc <Action>(RecentChangedFiles)
+let g:WhichKeyDesc_Show_sc = "<leader>sc Recent Changed Files"
+
+let g:WhichKeyDesc_Go = "<leader>g Go"
+nmap <leader>gb <Action>(Back)
+let g:WhichKeyDesc_Go_b = "<leader>gb Go Back"
+nmap <leader>gc <Action>(VcsShowPrevChangeMarker)
+let g:WhichKeyDesc_Go_c = "<leader>gc Go to Previous Git Change"
+nmap <leader>gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_Go_d = "<leader>gd Go to Declaration"
+nmap <leader>ge <Action>(JumpToLastChange)
+let g:WhichKeyDesc_Go_e = "<leader>ge Go to Last Change"
+nmap <leader>gf <Action>(Forward)
+let g:WhichKeyDesc_Go_f = "<leader>gf Go Forward"
+nmap <leader>gi <Action>(GotoImplementation)
+let g:WhichKeyDesc_Go_i = "<leader>gi Go to Implementation"
+nmap <leader>gj <Action>(GotoClass)
+let g:WhichKeyDesc_Go_j = "<leader>gj Go to Class"
+nmap <leader>gm <Action>(MethodDown)
+let g:WhichKeyDesc_Go_m = "<leader>gm Go to next method"
+nmap <leader>gn <Action>(VcsShowNextChangeMarker)
+let g:WhichKeyDesc_Go_n = "<leader>gn Go to Next Git Change"
+nmap <leader>gp <Action>(GotToSuperMethod)
+let g:WhichKeyDesc_Go_p = "<leader>gp Go to Super Method"
+nmap <leader>gt <Action>(GotoTest)
+let g:WhichKeyDesc_Go_t = "<leader>gt Go to Test"
+nmap <leader>gu <Action>(MethodUp)
+let g:WhichKeyDesc_Go_u = "<leader>gu Go to previous method"
+nmap <leader>gw <Action>(GotoPreviousError)
+let g:WhichKeyDesc_Go_w = "<leader>gw Go to Previous Error"
+nmap <leader>gx <Action>(GotoNextError)
+let g:WhichKeyDesc_Go_x = "<leader>gx Go to Next Error"
+
+let g:WhichKeyDesc_Bookmark = "<leader>b Bookmarks"
+nmap <leader>bt <Action>(ToggleBookmark)
+let g:WhichKeyDesc_Bookmark_t = "<leader>bt Toggle Bookmark"
+nmap <leader>bs <Action>(ShowBookmarks)
+let g:WhichKeyDesc_Bookmark_s = "<leader>bs Show Bookmarks"
+
+let g:WhichKeyDesc_editor = "<leader>e Editor"
+nmap <leader>eh <Action>(EditorScrollLeft)
+let g:WhichKeyDesc_editorh = "<leader>eh Scroll Left"
+nmap <leader>ej <Action>(EditorScrollDown)
+let g:WhichKeyDesc_editorj = "<leader>ej Scroll Down"
+nmap <leader>ek <Action>(EditorScrollUp)
+let g:WhichKeyDesc_editork = "<leader>ek Scroll Up"
+nmap <leader>el <Action>(EditorScrollRight)
+let g:WhichKeyDesc_editorl = "<leader>el Scroll Right"
+
+let g:WhichKeyDesc_Debug = "<leader>d Debug"
+nmap <leader>dc <Action>(ChooseDebugConfiguration)
+let g:WhichKeyDesc_Debug_c = "<leader>dc Choose Debug Configuration"
+nmap <leader>dg <Action>(Debug)
+let g:WhichKeyDesc_Debug_g = "<leader>dg Debug"
+nmap <leader>dr <Action>(Debugger.RemoveAllBreakpoints)
+let g:WhichKeyDesc_Debug_r = "<leader>dr Remove All Breakpoints"
+nmap <leader>ds <Action>(Stop)
+let g:WhichKeyDesc_Debug_s = "<leader>ds Stop"
+nmap <leader>dt <Action>(ToggleLineBreakpoint)
+let g:WhichKeyDesc_Debug_t = "<leader>dt Toggle Line Breakpoint"
+nmap <leader>dv <Action>(ViewBreakpoints)
+let g:WhichKeyDesc_Debug_v = "<leader>dv View Breakpoints"
+
+let g:WhichKeyDesc_Git = "<leader>c Git"
+nmap <leader>ca <Action>(Annotate)
+let g:WhichKeyDesc_Git_a = "<leader>ca Annotate"
+nmap <leader>cb <Action>(Git.Branches)
+let g:WhichKeyDesc_Git_b = "<leader>cb Branches"
+nmap <leader>cc <Action>(Git.ResolveConflicts)
+let g:WhichKeyDesc_Git_c = "<leader>cc Resolve Conflicts"
+nmap <leader>cl <Action>(Vcs.Show.Log)
+let g:WhichKeyDesc_Git_l = "<leader>cl Show Log"
+nmap <leader>cm <Action>(Git.Merge)
+let g:WhichKeyDesc_Git_m = "<leader>cm Merge"
+nmap <leader>co <Action>(Github.Open.In.Browser)
+let g:WhichKeyDesc_Git_o = "<leader>co Open in Browser"
+nmap <leader>cp <Action>(Git.Pull)
+let g:WhichKeyDesc_Git_p = "<leader>cp Pull"
+nmap <leader>cr <Action>(Git.Rebase)
+let g:WhichKeyDesc_Git_r = "<leader>cr Rebase"
+nmap <leader>cs <Action>(Vcs.Show.Local.Changes)
+let g:WhichKeyDesc_Git_s = "<leader>cs Show Local Changes"
+nmap <leader>cu <Action>(Git.Push)
+let g:WhichKeyDesc_Git_u = "<leader>cu Push"
+nmap <leader>cv <Action>(Compare.LastVersion)
+let g:WhichKeyDesc_Git_v = "<leader>cv Compare Last Version"
+nmap <leader>cw <Action>(ActivateCommitToolWindow)
+let g:WhichKeyDesc_Git_w = "<leader>cw Commit Tool Window"
