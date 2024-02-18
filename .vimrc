@@ -40,8 +40,8 @@ nnoremap <C-d> <C-d>zz
 nnoremap U <C-r>
 
 " Move half page with page up/down
-nnoremap <PageUp> <C-U>
-nnoremap <PageDown> <C-D>
+nnoremap <PageUp> <C-u>zz
+nnoremap <PageDown> <C-d>zz
 
 nmap <Up> k
 nmap <Down> j
